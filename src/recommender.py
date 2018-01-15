@@ -40,9 +40,9 @@ class recommender(object):
 	    :return:相似度TopN的UserID
 	    '''  
 	    frame = pd.read_csv(self.csvpath)                                                        #读取数据  
-	    targetUser = frame[frame['UserID'] == targetID]['MovieID']                          #目标用户数据  
+	    targetUser = frame[frame['UserID'] == targetID]['MusicID']                          #目标用户数据  
 	    otherUsersID = [i for i in set(frame['UserID']) if i != targetID]                   #其他用户ID  
-	    otherUsers = [frame[frame['UserID'] == i]['MovieID'] for i in otherUsersID]         #其他用户数据  
+	    otherUsers = [frame[frame['UserID'] == i]['MusicID'] for i in otherUsersID]         #其他用户数据  
 	    similarlist = [self.calcuteSimilar(targetUser,user) for user in otherUsers]              #计算  
 	    similarSeries = pd.Series(similarlist,index=otherUsersID)                           #Series  
 	    return similarSeries.sort_values()[-TopN:].index
