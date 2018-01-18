@@ -56,11 +56,11 @@ class recommender(object):
 	    csv表头为['UserID','MusicID','Rating']
 	    'MusicID'在不同的文件中既可指代歌手也可指代歌曲
 	    '''  
-	    frame = pd.read_csv(self.csvpath)   #返回数据类型： DataFrame#读取数据  
-	    targetUser = frame[frame['UserID'] == targetID]
+	    frame = pd.read_csv(self.csvpath)   #返回数据类型： DataFrame 
+	    targetUser = frame[frame['UserID'] == targetID]['MusicID']
 	    #print "targetUser： \n", targetUser                        #目标用户数据  
 	    otherUsersID = [i for i in set(frame['UserID']) if i != targetID]                   #其他用户ID  
-	    otherUsers = [frame[frame['UserID'] == i] for i in otherUsersID]         #其他用户数据  
+	    otherUsers = [frame[frame['UserID'] == i]['MusicID'] for i in otherUsersID]         #其他用户数据  
 	  
 	    # 根据music计算相似度
 	    similarlist = [self.calcuteSimilarbyMusic(targetUser,user) for user in otherUsers]
