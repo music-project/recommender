@@ -40,13 +40,13 @@ class recommender(object):
 		
 	def calcuteSimilarbyMusic(self, series1,series2):
 		'''
-		根据两用户听歌的歌曲或歌手的重合度计算余弦相似度
+		根据两用户听歌的歌曲或歌手的重合度计算相似度
 		'''
 		unionLen = len(set(series1) & set(series2))
 		if unionLen == 0:
 			return 0.0
-		product = len(series1) * len(series2)
-		similarity = unionLen / math.sqrt(product)
+		product = len(series1) + len(series2) - unionLen
+		similarity = float(unionLen) / float(product)
 		return similarity
 
 	def calcuteUserbyMusic(self, targetID=1,TopN=10):  
